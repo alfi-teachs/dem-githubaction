@@ -1,0 +1,35 @@
+
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        run: echo "Build completed"
+
+  unit-test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Unit Test
+        run: echo "Unit tests passed"
+
+  security-scan:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Security Scan
+        run: echo "Security scan passed"
+
+  deploy:
+    needs: [unit-test, security-scan]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        run: echo "Deployment completed"
